@@ -1,5 +1,17 @@
-.btn-primary{
+.btn-modify{
   border-radius: 25px !important;
-  padding: 15px 40px !important;
+  padding: 10px 40px !important;
   font-size: 30px !important;
+}
+
+.list-group{
+  align-items: flex-start;
+}
+
+.q-btn {
+  border-radius: 15px !important;
+  padding: 10px 70px 10px 20px !important;
+  font-size: 30px !important;
+  margin: 5px 0px 5px 0px;
+  
 }
