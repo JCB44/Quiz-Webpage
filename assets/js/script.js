@@ -1,4 +1,7 @@
-
+startTimer()
+var timer;
+var timerCount;
+var timerElement = document.querySelector(".timer");
 
 var question = {
   title: '9+10',
@@ -26,3 +29,15 @@ function showQuestion(q){
 }
 
 showQuestion(question);
+
+function startTimer() {
+  // Sets timer
+  timerCount = 121
+  timer = setInterval(function() {
+    timerCount--;
+    timerElement.textContent = timerCount;
+    if (timerCount === 0) {
+      clearInterval(timer);
+    }
+  }, 1000);
+}
