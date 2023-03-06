@@ -1,37 +1,29 @@
-var rootEl = $('#root');
+var a =$('#option1')
+var b =$('#option2')
+var c =$('#option3')
+var d =$('#option4')
 
-var question1 =$('#q1')
-var question2 =$('#q2')
-var question3 =$('#q3')
-var question4 =$('#q4')
+const questionEl = $("question")
+const answerButtonsEl = $("answer-buttons")
 
+const currentQuestionIndex=('')
+function setNextQuestion(){
+showQuestion(currentQuestionIndex)
+}
+function showQuestion(question){
 
-card1()
-function card1() {
-  question1.append('1')
-  question2.append('2')
-  question3.append('3')
-  question4.append('4')
+}
+function selectAnswer(){
 
-  question1.on('click', function (event) {
-    console.log('click')
-    
-    
-    clearEl()
-    card2()
-  })};
-
-function card2() {
-  question1.append('ok1')
-  question2.append('ok2')
-  question3.append('ok3')
-  question4.append('ok4')
-  
 }
 
-function clearEl(){
-  question1.empty()
-  question2.empty()
-  question3.empty()
-  question4.empty()
+const questions =[
+{
+question: "whats 9+10?",
+answers: [
+  {text: "4", correct:true},
+  {text: "22", correct:false}
+]
 }
+
+]
