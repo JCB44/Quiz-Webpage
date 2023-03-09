@@ -1,3 +1,4 @@
+
 startTimer()
 var timer;
 var timerCount;
@@ -6,7 +7,7 @@ var timerElement = document.querySelector(".timer");
 var question = {
   title: '9+10',
   al: ["19","4","3","21"],
-  correctAnswer: 1
+  correctAnswer: 0
 }
 
 function showQuestion(q){
@@ -15,20 +16,37 @@ function showQuestion(q){
 
   titleEl.textContent = q.title;
 
+  //DO NOT MIX JQUERY WITH VANILA JAVASCRIPT 
+  //OH MY GOODNESS THE TIME IVE LOST WITH THESE FEW LINES OF CODE
+
  var alts = $('.al')//document.querySelectorAll('.al')
  console.log(alts)
- alts.forEach(function(element, index){
-  element.textContent = q.al[index];
- 
+ alts.each(function(index){
+  console.log(alts)
+  this.textContent = q.al[index];
+  $(this).click(function(){
+    console.log('click')
+    if (q.correctAnswer == index){
+      console.log("correct")
+      $('.result').empty();
+      $( ".result" ).append( "<h1>Correct!</h1>" );
+    }
+    else{
+      console.log("incorrect")
+      $('.result').empty();
+      $( ".result" ).append( "<h1>Incorrect</h1>" );
+    }
+  });
+
+  
 });
 
-  // alts.array.forEach(element => {
-  //   element.textContent = "a"
-  // });
-
+ 
 }
-
 showQuestion(question);
+
+    
+
 
 function startTimer() {
   // Sets timer
