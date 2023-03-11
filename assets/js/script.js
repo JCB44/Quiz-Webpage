@@ -1,4 +1,20 @@
 startTimer()
+renderHighScore()
+$("#initialInput").hide()
+$("#hideEl").hide()
+$("#submit").hide()
+var initialDiv =$('#initialDiv')
+// var scoreDiv =$('#scoreDiv')
+
+function renderHighScore(){
+  var Initials = localStorage.getItem('Initials')
+  var Score = localStorage.getItem('Score')
+  $( "#initialDiv" ).append("<h4>" + Initials +" &nbsp;" + Score)
+  // $( "#scoreDiv" ).append(Score)
+}
+var submit = ('#submit')
+var initialInput = $('#initialInput')
+console.log(initialInput)
 var CorrectCount = 0
 var IncorrectCount = 0
 var i
@@ -6,12 +22,12 @@ var paused = false
 var alts = $('.al')//document.querySelectorAll('.al')
 var timer;
 var timerCount;
+// a youtube video showed me this and im not bothering finding a better way
 var timerEnd = setInterval(function() {
   if(paused === true) {
     timerCount++;
   }
 }, 1000);
-
 var timerElement = document.querySelector(".timer");
 var qIndex = 0
 var question = [{
@@ -44,32 +60,27 @@ var question = [{
   al: ["32","122","13","14"],
   correctAnswer: 0,
 }
-
-//function here
-// questionEnd
 ]
 function showQuestion(q){
   //jquery did not want to work for this
   var titleEl = document.getElementById("title")
-
   titleEl.textContent = q[qIndex].title;
   //DO NOT MIX JQUERY WITH VANILA JAVASCRIPT 
   //OH MY GOODNESS THE TIME IVE LOST WITH THESE FEW LINES OF CODE
-
- 
-//  console.log(alts)
  alts.each(function(index){
-  // console.log(alts)
   this.textContent = q[qIndex].al[index];
-  
-  
-
 });
 }
+// detects click on the 4 question options aswell as having logic for correct or incorect answer
 $('.al').click(function(e){
   console.log(qIndex)
   console.log(e.target)
+  //  \/ ask me to explaing this one line code and i wont answer
   i=e.target.id
+  //--------------------------------------------------------------------------------------------------
+  //had to hardcode this as the end becuase i cold not find a better alternative that worked         |
+  //if add more questions, update this qIndex == X value to match the last number of question array  |
+  // \/ \/ \/ \/ \/ \/--------------------------------------------------------------------------------
   if (qIndex == 5){
     console.log('end')
     questionEnd()
@@ -84,10 +95,10 @@ $('.al').click(function(e){
     qIndex++
    showQuestion(question)
   }
-  
 });
+//these comments keep my sanity in check
 function startTimer() {
-  // Sets timer
+  // Sets timer -------
   timerCount = 121
   timer = setInterval(function() {
     timerCount--;
@@ -96,7 +107,9 @@ function startTimer() {
       $('.list-group').empty();
       $('#title').empty();
       $('.result').empty();
-      $( ".result" ).append( "<h1>You ran out of time!</h1> <br><h2>Your score was: " +  (CorrectCount) +"</h2> <h3>Refresh the page to try again or check out your high score at the top left!</h3>" );
+      $( "#title" ).append( "<h1>You ran out of time!</h1> <br><h2>Your score was: " +  (timerCount) +"</h2> <h3>Refresh the page to try again or check out your high score at the top left!</h3>" );
+      // $("#initialInput").show()
+      // $("#submit").show()
       clearInterval(timer);
     }
   }, 1000);
@@ -114,15 +127,39 @@ function incorrect(){
       $('.result').empty();
       $( ".result" ).append( "<h1>Incorrect</h1>" );
 }
+// this looks dumb and thats becuase it is
 function questionEnd(){
 $('.list-group').empty();
 $('#title').empty();
-$( "#title" ).append( "<h1>You completed the quiz!</h1> <br><h2>Your score was: " +  (CorrectCount) +"</h2> <h3>Refresh the page to try again or check out your high score at the top left!</h3>" );
+$( "#title" ).append( "<h1>You completed the quiz!</h1> <br><h2>Your score was: " +  (timerCount) +"</h2>" );
+$("#initialInput").show()
+$("#hideEl").show()
+$("#submit").show()
 paused = true
+localStore()
 }
+//im pretty sure this is useless and was only used to test a console log in a weird way
+function localStore(){
+  var initialInput = $('#initialInput')
+console.log(initialInput)
+return;
+}
+//the following code is complete and utter spagetti but it works so im not touching it anymore as well as everything else. until later when i cant sleep becuase im paranoid about unrefined code :)
+$(submit).click(function(event){
+  event.preventDefault();
+  // console.log('pllllllllllleeeeeeeeeeeeeeessaaaaaaaassssse work')
+  var Initials = $("#initialInput").val();
+  event.preventDefault();
+  if (Initials === "") {
+    console.log('coding make brian hurty')
+    alert('You must Enter you initials in the field to save your score!')
+  } else {
+    console.log('Score Saved')
+    localStorage.setItem("Initials", Initials);
+    localStorage.setItem("Score", timerCount);
+  //   console.log("click?")
+  //   console.log(initialInput)
+  }
+});
 
-// console.log(lastQuestion)
-// if (CorrectCount + IncorrectCount ){
-//   questionEnd()
-// }
 showQuestion(question);
